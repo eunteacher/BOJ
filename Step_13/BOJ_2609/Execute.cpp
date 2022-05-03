@@ -13,7 +13,7 @@
 #include <algorithm>
 using namespace std;
 
-// 최대 공약수 구하기
+// 최대 공약수 구하기 - 반복문
 int GetGCD(int a, int b)
 {
 	// 1에서 부터 최댓값까지 모든 경우의 수 검사하여 최댓값 반환
@@ -28,15 +28,28 @@ int GetGCD(int a, int b)
 
 	// 유클리드 호제법 이용
 	// f(a,b) = gcd(a,b)라 할때, a mod b = 0 이라면 f(a,b) = b이고, a mod b = 0 가 아니라면 f(a,b) = f(b, a mod b)가 성립 
-	int mod = a % b;
-	while (mod > 0)
-	{
-		a = b;
-		b = mod;
-		mod = a % b;
-	}
+	//int mod = a % b;
+	//while (mod > 0)
+	//{
+	//	a = b;
+	//	b = mod;
+	//	mod = a % b;
+	//}
+
+	if (a % b == 0)
+		return b;
+	else
+		return GetGCD(b, a % b);
 
 	return b;
+}
+// 최대 공약수 구하기 - 재귀함수
+int GetGCD2(int a, int b)
+{
+	if (a % b == 0)
+		return b;
+	else
+		return GetGCD2(b, a % b);
 }
 // 최소 공배수 구하기
 // a * b = GCD(a,b) * LCM(a,b)
@@ -52,8 +65,8 @@ int main()
 
 	int a, b;
 	cin >> a >> b;
-
 	cout << GetGCD(a, b) << '\n';
+	//cout << GetGCD2(a, b) << '\n';
 	cout << GetLCM(a, b);
 
 	return 0;
